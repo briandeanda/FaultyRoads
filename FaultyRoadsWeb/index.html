@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Faulty Roads - Heatmap</title>
+    <style>
+      html, body{
+        height: 90%;
+        margin: 10px;
+        background-color: #49BCE3;
+        padding: 0px;
+      }
+       #map-canvas{
+        height: 90%;
+        margin: 10px;
+        padding: 1px;
+        border-radius: 20px;
+        border: 5px solid black;
+      }
+      #icons{
+        margin-top: 25px;
+        float: right;
+    }
+      
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=visualization"></script>
+    <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
+    <script>
+    var map, heatmap;
+
+  function initialize() {
+    var lat = 0;
+    var lon = 0;
+    /*
+    navigator.geolocation.getCurrentPosition(foc);
+    function foc(position){
+        lat = position.coords.latitude;
+        lon = position.coords.longitude;
+        console.log("latitude: " + lat);
+        console.log("longitude: " + lon);
+    }
+    */
+    var mapOptions = {
+      zoom: 12,
+      center: new google.maps.LatLng(36.651068, -121.778641),
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    };
+
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+
+  var pointArray = new google.maps.MVCArray();
+  //var Firebase = require("firebase");
+    var ref = new Firebase("https://faulty-roads.firebaseio.com/");
+
+    // Retrieve new posts as they are added to Firebase
+    ref.on("child_added", function(snapshot) {
+      var newPost = snapshot.val();
+        coordinates = new google.maps.LatLng(newPost.latitude,newPost.longitude)
+        pointArray.push(coordinates)
+    });
+
+  heatmap = new google.maps.visualization.HeatmapLayer({
+    data: pointArray,
+    dissipating: true,
+    map: map
+  });
+
+  heatmap.setMap(map);
+   heatmap.set('radius', heatmap.get('radius') ? null : 1);
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+
+  <body>
+    <div class="s">Brian</div>
+    <div id="map-canvas"></div>
+
+    <div id="icons">
+      <a href="http://github.com/briandeanda"><img id="icon" src="img/githubIcon.png"></a>
+      <a href="http://www.linkedin.com/in/bdeanda"><img id="icon" src="img/linkedinIcon.png"></a>
+      <a href="http://twitter.com/BrianDeAnda2"><img id="icon" src="img/twitterIcon.png"></a>
+    </div>
+    <footer>
+        Created by<a href="http://www.linkedin.com/in/bdeanda" class="linkedin">Brian De Anda</a>
+   </footer>
+  </body>
+</html>
