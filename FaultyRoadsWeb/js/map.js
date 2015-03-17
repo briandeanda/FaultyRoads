@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Faulty Roads - Heatmap</title>
-    <link href="css/styles.css" rel="stylesheet" />
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=visualization"></script>
-    <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
-    <!-- <script src="map.js"></script> -->
-    <script>
-    var map, heatmap;
+var map, heatmap;
 
   function initialize() {
     var lat = 0;
@@ -53,22 +43,3 @@
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
-</script>
-  </head>
-
-  <body>
-    <h1> Faulty Roads </h1>
-
-    <div id="map-canvas"></div>
-
-    <div id="icons">
-      <a href="http://github.com/briandeanda"><img id="icon" src="img/githubIcon.png"></a>
-      <a href="http://www.linkedin.com/in/bdeanda"><img id="icon" src="img/linkedinIcon.png"></a>
-      <a href="http://twitter.com/BrianDeAnda2"><img id="icon" src="img/twitterIcon.png"></a>
-    </div>
-
-    <footer>
-        Created by<a href="http://www.linkedin.com/in/bdeanda" class="linkedin">Brian De Anda</a>
-   </footer>
-  </body>
-</html>
